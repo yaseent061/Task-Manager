@@ -12,20 +12,16 @@ const Dashboard = ({ showCompletedOnly = false }) => {
   const [filterStatus, setFilterStatus] = useState('All');
   const [sortBy, setSortBy] = useState('date'); // 'date' or 'title'
 
-  // Derived state for filtering and sorting
   const processedTasks = useMemo(() => {
     let result = [...tasks];
 
-    // 1. Route-based filtering (Challenge Requirement)
     if (showCompletedOnly) {
       result = result.filter(t => t.status === 'Completed');
     } 
-    // 2. Dropdown filtering
     else if (filterStatus !== 'All') {
       result = result.filter(t => t.status === filterStatus);
     }
 
-    // 3. Sorting
     result.sort((a, b) => {
       if (sortBy === 'date') {
         return new Date(a.dueDate) - new Date(b.dueDate);
@@ -77,8 +73,6 @@ const Dashboard = ({ showCompletedOnly = false }) => {
       </header>
 
       {!showCompletedOnly && <TaskSummary tasks={tasks} />}
-
-      {/* Controls Bar */}
       <div className="flex flex-wrap gap-4 mb-6 bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
         {!showCompletedOnly && (
         <div className="flex items-center gap-2 text-gray-600">

@@ -30,7 +30,6 @@ const taskReducer = (state, action) => {
 export const TaskProvider = ({ children }) => {
   const [state, dispatch] = useReducer(taskReducer, initialState);
 
-  // Persistence: Update LocalStorage whenever tasks change
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(state.tasks));
   }, [state.tasks]);
